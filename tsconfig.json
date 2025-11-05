@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2020", // Target versi JavaScript (ES2020 umum untuk Node.js modern)
+    "module": "commonjs", // Sistem modul yang dipakai Node.js
+    "rootDir": "./src", // Folder kode TypeScript Anda
+    "outDir": "./dist", // Folder hasil kompilasi JavaScript
+    "esModuleInterop": true, // Kompatibilitas modul ES6 dan CommonJS
+    "strict": true, // Mengaktifkan semua aturan pengecekan tipe yang ketat
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["./node_modules", "./dist"]
+}
