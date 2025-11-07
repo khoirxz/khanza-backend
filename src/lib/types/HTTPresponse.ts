@@ -1,4 +1,4 @@
-import { success, z } from "zod";
+import { z } from "zod";
 
 export const HTTPresponseSchema = z.object({
   success: z.boolean(),
