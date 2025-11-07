@@ -1,13 +1,19 @@
 import { TindakanRawatInapRepository } from "./tindakan-rawat-inap.repository";
 import { db } from "../../db";
-import { TindakanRawatInapFilterParams } from "./tindakan-rawat-inap.interface";
+import {
+  TindakanRawatInapFilterParams,
+  PaginationTindakanRawatInap,
+  TindakanRawatInap,
+} from "./tindakan-rawat-inap.interface";
 import { QueryTypes } from "sequelize";
 
 export class TindakanRawatInapService {
   private readonly repository: TindakanRawatInapRepository =
     new TindakanRawatInapRepository();
 
-  getAll = async (params: TindakanRawatInapFilterParams) => {
+  getAll = async (
+    params: TindakanRawatInapFilterParams,
+  ): Promise<PaginationTindakanRawatInap> => {
     const {
       page = 1,
       limit = 10,
@@ -45,9 +51,12 @@ export class TindakanRawatInapService {
     const shortOrderBy = `ORDER BY ${sortBy} ${sortOrder}`;
 
     const query = `SELECT rawat_jl_drpr.no_rawat as nomor_rawat,
+             reg_periksa.no_rkm_medis,
              dokter.nm_dokter as nama_dokter,
+             dokter.kd_dokter,
              pasien.nm_pasien as nama_pasien,
              petugas.nama as nama_petugas,
+             rawat_jl_drpr.nip,
              rawat_jl_drpr.tgl_perawatan as tanggal_perawatan,
              rawat_jl_drpr.jam_rawat as jam_perawatan,
              rawat_jl_drpr.kd_jenis_prw as kode_jenis_perawatan,
@@ -92,14 +101,13 @@ export class TindakanRawatInapService {
     const totalItems = (countResult[0] as any).total;
 
     return {
-      current_page: page,
+      currentPage: page,
       totalItems: totalItems,
       totalPages: Math.ceil(totalItems / limit),
-      itemsPerPage: limit,
+      itemsPerPage: Number(limit),
       hasNext: page < Math.ceil(totalItems / limit),
       hasPrev: page > 1,
-      data: result,
-      total: totalItems,
+      data: result as TindakanRawatInap[],
     };
   };
 }
