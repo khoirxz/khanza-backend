@@ -30,7 +30,7 @@ export class DokterService {
 
     const shortOrderBy = `ORDER BY dokter.${sortBy} ${sortOrder}`;
 
-    const query = `SELECT dokter.* FROM dokter ${whereClause} ${shortOrderBy} LIMIT ${limit} OFFSET ${offset}`;
+    const query = `SELECT dokter.*, spesialis.nm_sps as spesialis FROM dokter LEFT JOIN spesialis ON dokter.kd_sps = spesialis.kd_sps ${whereClause} ${shortOrderBy} LIMIT ${limit} OFFSET ${offset}`;
 
     const countQuery = `SELECT COUNT(*) as total FROM dokter ${whereClause}`;
 

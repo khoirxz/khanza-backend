@@ -17,6 +17,7 @@ export const DokterSchema = z.object({
   alumni: z.string(),
   no_ijn_praktek: z.string(),
   status: z.string(),
+  spesialis: z.string()
 });
 
 export type DokterTypes = z.infer<typeof DokterSchema>;
